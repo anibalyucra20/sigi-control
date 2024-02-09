@@ -36,7 +36,7 @@ if ($cont_cliente > 0) {
     $b_cliente = buscarClientesValidar($conexion, $ruc, $dominio);
     $rb_cliente = mysqli_fetch_array($b_cliente);
     // verificamos si esta activo y coincide el token
-    if ($rb_cliente['estado'] == 1) {
+    if ((password_verify($rb_cliente['token'],$token)) && $rb_cliente['estado'] == 1) {
         // verificamos que tenga los permisos para utilizar la funcion solicitada
         $b_sistema = buscarSistemasByCodigo($conexion, $sistema);
         $rb_sistema = mysqli_fetch_array($b_sistema);
