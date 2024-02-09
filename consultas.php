@@ -33,6 +33,7 @@ definimos los tipos de funciones que se pueden aceptar
 $b_cliente = buscarClientesValidar($conexion, $ruc, $dominio);
 $cont_cliente = mysqli_num_rows($b_cliente);
 if ($cont_cliente > 0) {
+    $b_cliente = buscarClientesValidar($conexion, $ruc, $dominio);
     $rb_cliente = mysqli_fetch_array($b_cliente);
     // verificamos si esta activo y coincide el token
     if ((password_verify($token, $rb_cliente['token'])) && $rb_cliente['estado'] == 1) {
@@ -56,7 +57,7 @@ if ($cont_cliente > 0) {
                 case 4:
                     $respuesta = calcular_calificacion($conexion, $datos);
                     break;
-                
+
 
                 default:
                     $respuesta = "funcion incorrecta";
@@ -68,7 +69,7 @@ if ($cont_cliente > 0) {
     } else {
         $respuesta = "Usuario no válido";
     }
-}else {
-    $respuesta ="Usuario no existe";
+} else {
+    $respuesta = "Usuario no existe";
 }
 echo $respuesta;
