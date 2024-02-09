@@ -18,19 +18,49 @@ function generar_llave()
 
 
 
-function calcular_criterios_evaluacion(){
-
+function calcular_criterios_evaluacion()
+{
 }
 
-function calcular_evaluacion(){
-    
+function calcular_evaluacion()
+{
 }
 
-function calcular_calificacion(){
-    
+function calcular_calificacion()
+{
+}
+
+function verSistemasCliente($conexion, $id_cliente)
+{
+    $array = array();
+    $consulta = "SELECT * FROM sistemas_clientes WHERE id_cliente = '$id_cliente'";
+    $ejecutar = mysqli_query($conexion, $consulta);
+    while ($respuesta = mysqli_fetch_array($ejecutar)) {
+        $id_sistems = $respuesta['id_sistema'];
+        $b_sistema = "SELECT * FROM sistemas WHERE id='$id_sistems'";
+        $ejec_b = mysqli_query($conexion, $b_sistema);
+        $r_b_sistema = mysqli_fetch_array($ejec_b);
+        array_push($array, $r_b_sistema['codigo']);
+    }
+    return codificar($array);
 }
 
 
 
+function decodificar($datos)
+{
+    $datos = base64_decode($datos);
+    $datos = unserialize($datos);
+    return $datos;
+}
 
-?>
+
+function codificar($datos)
+{
+    $datos = serialize($datos);
+    $datos = base64_encode($datos);
+    $datos = urlencode($datos);
+    return $datos;
+}
+
+
